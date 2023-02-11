@@ -1,7 +1,14 @@
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home/Home';
+import Movies from './pages/Movies/Movies';
 
 import Navbar from './Navbar/Navbar';
 export const App = () => {
+  /* '/' - компонент Home, домашняя страница со списком популярных кинофильмов.
+'/movies' - компонент Movies, страница поиска фильмов по ключевому слову.
+'/movies/:movieId' - компонент MovieDetails, страница с детальной информацией о кинофильме.
+/movies/:movieId/cast - компонент Cast, информация о актерском составе. Рендерится на странице MovieDetails.
+/movies/:movieId/reviews - компонент Reviews, информация об обзорах. Рендерится на странице MovieDetails. */
   return (
     <BrowserRouter
       style={{
@@ -14,6 +21,10 @@ export const App = () => {
       }}
     >
       <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/movies" element={<Movies />} />
+      </Routes>
     </BrowserRouter>
   );
 };
