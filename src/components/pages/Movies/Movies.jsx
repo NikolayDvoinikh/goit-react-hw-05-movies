@@ -3,8 +3,9 @@ import { getSearchFilms } from 'shared/services/Api';
 import styles from './movies.css';
 import { useState, useEffect } from 'react';
 
-const Movies = ({ onSubmit }) => {
+const Movies = () => {
   const [searchMovie, setSearchMovie] = useState('');
+  const [query, setQuery] = useState('');
   const [items, setItems] = useState([]);
   const [error, setError] = useState(null);
 
@@ -14,28 +15,31 @@ const Movies = ({ onSubmit }) => {
 
   const onSubmitHandler = e => {
     e.preventDefault();
-    onSubmit(searchMovie);
+    setQuery(searchMovie);
   };
 
-  //   useEffect(() => {
-  //     const fetchSearch = async () => {
-  //       try {
-  //         // setLoading(true);
-  //         const { results } = await getSearchFilms(searchMovie);
-  //         setItems([...results]);
-  //       } catch ({ response }) {
-  //         setError(response.data.message);
-  //       }
-  //       // finally {
-  //       // setLoading(false)
-  //       // }
-  //     };
-
-  //   }, []);
+  useEffect(() => {
+    if (!query) {
+      return;
+    }
+    const fetchSearch = async () => {
+      try {
+        // setLoading(true);
+        const { results } = await getSearchFilms(query);
+        setItems([...results]);
+      } catch ({ response }) {
+        setError(response.data.message);
+      }
+      // finally {
+      // setLoading(false)
+      // }
+    };
+    fetchSearch();
+  }, [query]);
 
   return (
     <>
-      <form onSubmit={() => getSearchFilms}>
+      <form onSubmit={onSubmitHandler}>
         <input
           placeholder="search"
           onChange={handleSearchMovie}
@@ -47,7 +51,7 @@ const Movies = ({ onSubmit }) => {
       </form>
       <ul>
         {items.map(({ id, title }) => (
-          <Link key={id}>
+          <Link key={id} to={`/movies/${id}`}>
             <li>
               <p>{title}</p>
             </li>

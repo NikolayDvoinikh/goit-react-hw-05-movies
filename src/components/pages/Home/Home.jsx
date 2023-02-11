@@ -13,7 +13,6 @@ const Home = () => {
         // setLoading(true);
         const { results } = await getTrendMovies();
         setItems([...results]);
-        console.log(results);
       } catch ({ response }) {
         setError(response.data.message);
       }
@@ -29,7 +28,7 @@ const Home = () => {
       <h1>Trending Today</h1>
       <ul>
         {items.map(({ id, title }) => (
-          <Link key={id} to={id}>
+          <Link key={id} to={`/movies/${id}`}>
             <li>
               <h2>{title}</h2>
             </li>
