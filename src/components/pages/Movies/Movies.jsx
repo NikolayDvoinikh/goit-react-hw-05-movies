@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { getSearchFilms } from 'shared/services/Api';
-import styles from './movies.css';
+// import styles from './movies.css';
 import { useState, useEffect } from 'react';
 
 const Movies = () => {

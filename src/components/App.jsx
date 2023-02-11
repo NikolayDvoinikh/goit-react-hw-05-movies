@@ -7,11 +7,6 @@ import ReviewsPage from './pages/ReviewsPage/ReviewsPage';
 
 import Navbar from './Navbar/Navbar';
 export const App = () => {
-  /* '/' - компонент Home, домашняя страница со списком популярных кинофильмов.
-'/movies' - компонент Movies, страница поиска фильмов по ключевому слову.
-'/movies/:movieId' - компонент MovieDetails, страница с детальной информацией о кинофильме.
-/movies/:movieId/cast - компонент Cast, информация о актерском составе. Рендерится на странице MovieDetails.
-/movies/:movieId/reviews - компонент Reviews, информация об обзорах. Рендерится на странице MovieDetails. */
   return (
     <BrowserRouter
       style={{
