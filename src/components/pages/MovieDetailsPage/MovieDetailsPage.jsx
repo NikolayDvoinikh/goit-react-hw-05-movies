@@ -28,7 +28,7 @@ const MovieDetailsPage = () => {
       }
     };
     fetchInfoMovie();
-  }, []);
+  }, [movieId]);
   return (
     <>
       <h1>MovieDetailsPage</h1>
