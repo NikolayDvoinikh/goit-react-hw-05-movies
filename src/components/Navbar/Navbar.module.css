@@ -13,10 +13,12 @@
   text-decoration: none;
   color: tomato;
 }
-
+.link:visited {
+  color: tomato;
+}
 /* .link:global(.active) {
   font-weight: bold;
 } */
-.link.active {
+a.link.active {
   font-weight: bold;
 }

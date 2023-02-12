@@ -1,63 +1,65 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { getSearchFilms } from 'shared/services/Api';
-// import styles from './movies.css';
+import styles from './movies.module.css';
 import { useState, useEffect } from 'react';
 
 const Movies = () => {
-  const [searchMovie, setSearchMovie] = useState('');
-  const [query, setQuery] = useState('');
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const handleSearchMovie = ({ currentTarget }) => {
-    setSearchMovie(currentTarget.value);
-  };
+  const location = useLocation();
 
   const onSubmitHandler = e => {
     e.preventDefault();
-    setQuery(searchMovie);
+    const { searchMovie } = e.currentTarget.elements;
+    setSearchParams({ search: searchMovie.value });
   };
 
   useEffect(() => {
+    const query = searchParams.get('search');
     if (!query) {
       return;
     }
     const fetchSearch = async () => {
       try {
-        // setLoading(true);
+        setLoading(true);
         const { results } = await getSearchFilms(query);
         setItems([...results]);
       } catch ({ response }) {
         setError(response.data.message);
+      } finally {
+        setLoading(false);
       }
-      // finally {
-      // setLoading(false)
-      // }
     };
     fetchSearch();
-  }, [query]);
+  }, [searchParams]);
 
   return (
     <>
       <form onSubmit={onSubmitHandler}>
-        <input
-          placeholder="search"
-          onChange={handleSearchMovie}
-          type="text"
-          value={searchMovie}
-          name="searchMovie"
-        />
+        <input placeholder="search" type="text" name="searchMovie" />
         <button type="submit">Search</button>
       </form>
-      <ul>
-        {items.map(({ id, title }) => (
-          <Link key={id} to={`/movies/${id}`}>
-            <li>
-              <p>{title}</p>
-            </li>
-          </Link>
-        ))}
-      </ul>
+      {loading && <p>...Load Movies</p>}
+      {error && <p>{error}</p>}
+      {items && (
+        <ul className={styles.list}>
+          {items.map(({ id, title }) => (
+            <Link
+              className={styles.link}
+              key={id}
+              to={`/movies/${id}`}
+              state={{ from: location }}
+            >
+              <li>
+                <span>{title}</span>
+              </li>
+            </Link>
+          ))}
+        </ul>
+      )}
     </>
   );
 };

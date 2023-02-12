@@ -1,24 +1,24 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getTrendMovies } from 'shared/services/Api';
+import styles from './home.module.css';
 
 const Home = () => {
   const [items, setItems] = useState([]);
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchTrendMovies = async () => {
       try {
-        // setLoading(true);
+        setLoading(true);
         const { results } = await getTrendMovies();
         setItems([...results]);
       } catch ({ response }) {
         setError(response.data.message);
+      } finally {
+        setLoading(false);
       }
-      // finally {
-      // setLoading(false)
-      // }
     };
     fetchTrendMovies();
   }, []);
@@ -26,11 +26,13 @@ const Home = () => {
   return (
     <>
       <h1>Trending Today</h1>
+      {loading && <p>...Load Movies</p>}
+      {error && <p>{error}</p>}
       <ul>
         {items.map(({ id, title }) => (
-          <Link key={id} to={`/movies/${id}`}>
+          <Link className={styles.link} key={id} to={`/movies/${id}`}>
             <li>
-              <h2>{title}</h2>
+              <span className={styles.title}>{title}</span>
             </li>
           </Link>
         ))}
