@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
 import { getTrendMovies } from 'shared/services/Api';
+
 import styles from './home.module.css';
 
 const Home = () => {

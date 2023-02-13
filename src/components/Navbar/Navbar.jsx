@@ -10,11 +10,9 @@ const fullNameClass = ({ isActive }) => {
 
 const Navbar = () => {
   const elements = menuItems.map(({ id, title, link }) => (
-    <li key={id}>
-      <NavLink className={fullNameClass} to={link}>
-        {title}
-      </NavLink>
-    </li>
+    <NavLink key={id} className={fullNameClass} to={link}>
+      <li>{title}</li>
+    </NavLink>
   ));
   return <ul className={styles.menu}>{elements}</ul>;
 };
