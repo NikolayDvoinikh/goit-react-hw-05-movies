@@ -16,7 +16,6 @@ const ReviewsPage = () => {
 
         const { results } = await getMovieReviews(movieId);
         setItems([...results]);
-        console.log(items);
       } catch ({ response }) {
         setError(response.data.message);
       } finally {

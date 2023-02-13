@@ -17,7 +17,6 @@ const CastPage = () => {
 
         const { cast } = await getMovieActorsInfo(movieId);
         setItems([...cast]);
-        console.log(items);
       } catch ({ response }) {
         setError(response.data.message);
       } finally {
