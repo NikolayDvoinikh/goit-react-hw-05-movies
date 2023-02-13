@@ -1,3 +1,6 @@
+.container {
+  border-bottom: 2px solid grey;
+}
 .wrapper {
   padding: 20px;
   display: flex;

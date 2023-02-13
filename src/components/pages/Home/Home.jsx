@@ -23,20 +23,20 @@ const Home = () => {
     fetchTrendMovies();
   }, []);
 
+  const elements = items.map(({ id, title }) => (
+    <Link className={styles.link} key={id} to={`/movies/${id}`}>
+      <li>
+        <span className={styles.title}>{title}</span>
+      </li>
+    </Link>
+  ));
+
   return (
     <>
       <h1>Trending Today</h1>
       {loading && <p>...Load Movies</p>}
       {error && <p>{error}</p>}
-      <ul>
-        {items.map(({ id, title }) => (
-          <Link className={styles.link} key={id} to={`/movies/${id}`}>
-            <li>
-              <span className={styles.title}>{title}</span>
-            </li>
-          </Link>
-        ))}
-      </ul>
+      {items.length > 0 && <ul>{elements}</ul>}
     </>
   );
 };

@@ -2,7 +2,7 @@ import styles from './movie-card.module.css';
 
 const MovieCard = ({ url, rate, overview, genres, title, releaseDate }) => {
   return (
-    <>
+    <div className={styles.container}>
       <div className={styles.wrapper}>
         <div>
           <img
@@ -29,7 +29,7 @@ const MovieCard = ({ url, rate, overview, genres, title, releaseDate }) => {
           {genres && <p>{genres}</p>}
         </div>
       </div>
-    </>
+    </div>
   );
 };
 export default MovieCard;

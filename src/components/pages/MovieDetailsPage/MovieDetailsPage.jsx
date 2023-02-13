@@ -69,7 +69,7 @@ const MovieDetailsPage = () => {
             overview={overview}
             url={url}
           />
-          <p>Additional Information</p>
+          <p className={styles.additional}>Additional Information</p>
           <ul>
             <Link to="cast">
               <li>
