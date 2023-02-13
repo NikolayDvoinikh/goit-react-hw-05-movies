@@ -2,6 +2,7 @@ import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { getSearchFilms } from 'shared/services/Api';
 import styles from './movies.module.css';
 import { useState, useEffect } from 'react';
+// import PropTypes from 'prop-types';
 
 const Movies = () => {
   const [items, setItems] = useState([]);
@@ -36,6 +37,19 @@ const Movies = () => {
     fetchSearch();
   }, [searchParams]);
 
+  const elements = items.map(({ id, title }) => (
+    <Link
+      className={styles.link}
+      key={id}
+      to={`${id}`}
+      state={{ from: location }}
+    >
+      <li>
+        <span>{title}</span>
+      </li>
+    </Link>
+  ));
+
   return (
     <>
       <form onSubmit={onSubmitHandler}>
@@ -44,23 +58,12 @@ const Movies = () => {
       </form>
       {loading && <p>...Load Movies</p>}
       {error && <p>{error}</p>}
-      {items && (
-        <ul className={styles.list}>
-          {items.map(({ id, title }) => (
-            <Link
-              className={styles.link}
-              key={id}
-              to={`/movies/${id}`}
-              state={{ from: location }}
-            >
-              <li>
-                <span>{title}</span>
-              </li>
-            </Link>
-          ))}
-        </ul>
-      )}
+      {items.length > 0 && <ul className={styles.list}>{elements}</ul>}
     </>
   );
 };
 export default Movies;
+
+// Movies.propTypes = {
+//   items: PropTypes.array,
+// };

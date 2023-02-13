@@ -1,7 +1,8 @@
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { getFullMovieInfo } from '../../../shared/services/Api';
 import MovieCard from 'shared/MovieCard/MovieCard';
+
 import styles from './movie-details-page.module.css';
 
 const MovieDetailsPage = () => {
@@ -15,7 +16,6 @@ const MovieDetailsPage = () => {
   const [releaseDate, setReleaseDate] = useState('');
 
   const { movieId } = useParams();
-
   const { state } = useLocation();
   const goBack = state?.from ?? '/';
 
@@ -71,18 +71,20 @@ const MovieDetailsPage = () => {
           />
           <p className={styles.additional}>Additional Information</p>
           <ul>
-            <Link to="cast">
+            <Link to="cast" state={{ from: goBack }}>
               <li>
                 <p>Cast</p>
               </li>
             </Link>
-            <Link to="reviews">
+            <Link to="reviews" state={{ from: goBack }}>
               <li>
                 <p>Reviews</p>
               </li>
             </Link>
           </ul>
-          <Outlet />
+          <Suspense>
+            <Outlet />
+          </Suspense>
         </div>
       )}
     </div>
