@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { getMovieActorsInfo } from 'shared/services/Api';
 import ActorCard from 'shared/ActorCard/ActorCard';
@@ -45,3 +46,14 @@ const CastPage = () => {
 };
 
 export default CastPage;
+
+CastPage.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      original_name: PropTypes.string,
+      character: PropTypes.string,
+      profile_path: PropTypes.string,
+    })
+  ),
+};

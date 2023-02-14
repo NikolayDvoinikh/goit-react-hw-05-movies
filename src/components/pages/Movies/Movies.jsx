@@ -2,7 +2,7 @@ import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { getSearchFilms } from 'shared/services/Api';
 import styles from './movies.module.css';
 import { useState, useEffect } from 'react';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 const Movies = () => {
   const [items, setItems] = useState([]);
@@ -64,6 +64,11 @@ const Movies = () => {
 };
 export default Movies;
 
-// Movies.propTypes = {
-//   items: PropTypes.array,
-// };
+Movies.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+    })
+  ),
+};

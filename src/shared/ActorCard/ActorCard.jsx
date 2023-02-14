@@ -1,4 +1,5 @@
 import styles from './actor-card.module.css';
+import PropTypes from 'prop-types';
 
 const ActorCard = ({ img, name, role }) => {
   return (
@@ -20,3 +21,9 @@ const ActorCard = ({ img, name, role }) => {
   );
 };
 export default ActorCard;
+
+ActorCard.propTypes = {
+  img: PropTypes.string,
+  name: PropTypes.string,
+  role: PropTypes.string,
+};

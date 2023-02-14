@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-
+import PropTypes from 'prop-types';
 import { menuItems } from './menuItems';
 
 import styles from './Navbar.module.css';
@@ -18,3 +18,13 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+Navbar.propTypes = {
+  menuItems: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      link: PropTypes.string.isRequired,
+    })
+  ),
+};

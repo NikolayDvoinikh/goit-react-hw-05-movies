@@ -1,6 +1,8 @@
 import { Link, Outlet, useParams, useLocation } from 'react-router-dom';
 import { useEffect, useState, Suspense } from 'react';
 import { getFullMovieInfo } from '../../../shared/services/Api';
+import PropTypes from 'prop-types';
+
 import MovieCard from 'shared/MovieCard/MovieCard';
 
 import styles from './movie-details-page.module.css';
@@ -9,11 +11,13 @@ const MovieDetailsPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [title, setTitle] = useState('');
-  const [rate, setRate] = useState('');
-  const [genres, setGenres] = useState([]);
+  const [rate, setRate] = useState(0);
+  const [genres, setGenres] = useState('');
   const [url, setUrl] = useState('');
   const [overview, setOverview] = useState('');
   const [releaseDate, setReleaseDate] = useState('');
+
+  console.log(typeof genres);
 
   const { movieId } = useParams();
   const { state } = useLocation();
@@ -91,3 +95,16 @@ const MovieDetailsPage = () => {
   );
 };
 export default MovieDetailsPage;
+
+MovieDetailsPage.propTypes = {
+  resp: PropTypes.arrayOf(
+    PropTypes.shape({
+      poster_path: PropTypes.string,
+      overview: PropTypes.string,
+      genres: PropTypes.string,
+      original_title: PropTypes.string,
+      vote_average: PropTypes.number,
+      release_date: PropTypes.string,
+    })
+  ),
+};

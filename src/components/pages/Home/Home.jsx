@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import { getTrendMovies } from 'shared/services/Api';
+import PropTypes from 'prop-types';
 
 import styles from './home.module.css';
 
@@ -43,3 +44,12 @@ const Home = () => {
   );
 };
 export default Home;
+
+Home.propTypes = {
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      title: PropTypes.string,
+    })
+  ),
+};

@@ -1,4 +1,5 @@
 import styles from './movie-card.module.css';
+import PropTypes from 'prop-types';
 
 const MovieCard = ({ url, rate, overview, genres, title, releaseDate }) => {
   return (
@@ -16,9 +17,7 @@ const MovieCard = ({ url, rate, overview, genres, title, releaseDate }) => {
           ) : (
             <h2>{title}</h2>
           )}
-          {rate && (
-            <p>{`User Score: ${Math.round(Number(rate) * 10).toFixed(0)} %`}</p>
-          )}
+          {rate && <p>{`User Score: ${Math.round(rate * 10).toFixed(0)} %`}</p>}
           <h3>Overview</h3>
           {overview ? (
             <p>{overview}</p>
@@ -33,3 +32,12 @@ const MovieCard = ({ url, rate, overview, genres, title, releaseDate }) => {
   );
 };
 export default MovieCard;
+
+MovieCard.propTypes = {
+  url: PropTypes.string.isRequired,
+  rate: PropTypes.number,
+  overview: PropTypes.string,
+  genres: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  releaseDate: PropTypes.string,
+};
