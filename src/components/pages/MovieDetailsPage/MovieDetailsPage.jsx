@@ -17,8 +17,6 @@ const MovieDetailsPage = () => {
   const [overview, setOverview] = useState('');
   const [releaseDate, setReleaseDate] = useState('');
 
-  console.log(typeof genres);
-
   const { movieId } = useParams();
   const { state } = useLocation();
   const goBack = state?.from ?? '/';
