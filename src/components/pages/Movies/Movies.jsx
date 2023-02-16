@@ -9,6 +9,14 @@ const Movies = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [searchInit, setQue] = useState(() => {
+    const init = searchParams.get('search');
+    return init ? init : '';
+  });
+
+  const handleChange = e => {
+    setQue(e.currentTarget.value);
+  };
 
   const location = useLocation();
 
@@ -23,6 +31,7 @@ const Movies = () => {
     if (!query) {
       return;
     }
+
     const fetchSearch = async () => {
       try {
         setLoading(true);
@@ -53,7 +62,13 @@ const Movies = () => {
   return (
     <>
       <form onSubmit={onSubmitHandler}>
-        <input placeholder="search" type="text" name="searchMovie" />
+        <input
+          onChange={handleChange}
+          value={searchInit}
+          placeholder="search"
+          type="text"
+          name="searchMovie"
+        />
         <button type="submit">Search</button>
       </form>
       {loading && <p>...Load Movies</p>}
